@@ -4,21 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesApplication.WPF"
+        xmlns:controls="clr-namespace:NotesApplication.WPF.Controls"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="600">
     <Grid>
-        <StackPanel Width="550" VerticalAlignment="Bottom" Margin="0 0 0 10">
-            <TextBox></TextBox>
-            <TextBox Height="120"></TextBox>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Button Cursor="Hand" Padding="5">Add</Button>
-                <Button Grid.Column="1">Clear</Button>
-            </Grid>
-        </StackPanel>
+        <DockPanel VerticalAlignment="Bottom" Margin="0 0 0 10">
+            <controls:NewNote/>
+        </DockPanel>
     </Grid>
 </Window>

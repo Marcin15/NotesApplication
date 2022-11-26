@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotesApplication.UseCases.ViewModels
 {
-    public class MainViewModel
+    public interface INewNoteViewModel
     {
 
     }
