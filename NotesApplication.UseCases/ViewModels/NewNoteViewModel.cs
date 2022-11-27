@@ -76,7 +76,7 @@ namespace NotesApplication.UseCases.ViewModels
 
         public async void AddNote()
         {
-            await _noteService.AddNewNote("Some title", "Some content");
+            await _noteService.AddNewNote(_title, _content);
             Clear();
         }
     }
