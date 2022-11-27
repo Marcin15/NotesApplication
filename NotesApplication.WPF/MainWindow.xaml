@@ -5,12 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesApplication.WPF"
         xmlns:controls="clr-namespace:NotesApplication.WPF.Controls"
+        xmlns:viewModel ="clr-namespace:NotesApplication.UseCases.ViewModels;assembly=NotesApplication.UseCases"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="600">
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
     <Grid>
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat=" {0} {1}">
+                    <Binding Path="FirstName"/>
+                    <Binding Path="LastName"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
         <DockPanel VerticalAlignment="Bottom" Margin="0 0 0 10">
-            <controls:NewNote/>
+            <controls:NewNote DataContext="{Binding NewNoteViewModel}"/>
         </DockPanel>
     </Grid>
 </Window>
