@@ -8,13 +8,13 @@ namespace NotesApplication.WPF.Extensions
 {
     public static class RegistrarExtensions
     {
-        public static void RegisterServices(this ServiceCollection services, Type scanningType)
+        public static void RegisterServices(this ApplicationBuilder builder, Type scanningType)
         {
             var registrars = GetRegistrars<IApplicationServicesRegistrar>(scanningType);
 
             foreach (var registrar in registrars)
             {
-                registrar.RegisterServices(services);
+                registrar.RegisterServices(builder);
             }
         }
 
