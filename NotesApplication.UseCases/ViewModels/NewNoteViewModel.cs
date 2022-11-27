@@ -1,10 +1,6 @@
 ﻿using NotesApplication.UseCases.Helpers;
+using NotesApplication.UseCases.Services;
 using NotesApplication.UseCases.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NotesApplication.UseCases.ViewModels
@@ -12,7 +8,7 @@ namespace NotesApplication.UseCases.ViewModels
     public class NewNoteViewModel : BaseViewModel, INewNoteViewModel
     {
         private string _title;
-        public string Title 
+        public string Title
         {
             get { return _title; }
             set
@@ -23,28 +19,53 @@ namespace NotesApplication.UseCases.ViewModels
         }
 
         private string _content;
-        public string Content 
+        public string Content
         {
             get { return _content; }
-            set 
-            { 
-                _content = value; 
-                OnPropertyChanged(); 
+            set
+            {
+                _content = value;
+                OnPropertyChanged();
             }
         }
 
         private RelayCommand _clearCommand;
-        public ICommand ClearCommand { get; set; }
-        //{
-        //    get
-        //    {
-        //        return _clearCommand ?? new RelayCommand(x => Clear());
-        //    }
-        //}
 
-        public NewNoteViewModel()
+        public ICommand ClearCommand
         {
-            ClearCommand = new RelayCommand(x => Clear());
+            get
+            {
+                if (_clearCommand is null)
+                {
+                    _clearCommand = new RelayCommand(x => Clear());
+                }
+
+                return _clearCommand;
+            }
+        }
+
+        private RelayCommand _addNewNoteCommand;
+        
+        public ICommand AddNewNoteCommand
+        {
+            get
+            {
+                if(_addNewNoteCommand is null)
+                {
+                    _addNewNoteCommand = new RelayCommand(x => AddNote());
+                }
+
+                return _addNewNoteCommand;
+            }
+        }
+
+        private readonly INoteService _noteService;
+
+        //public NewNoteViewModel() { }
+
+        public NewNoteViewModel(INoteService noteService)
+        {
+            _noteService = noteService;
         }
 
         public void Clear()
@@ -53,9 +74,10 @@ namespace NotesApplication.UseCases.ViewModels
             Content = string.Empty;
         }
 
-        public void AddNote()
+        public async void AddNote()
         {
-
+            await _noteService.AddNewNote("Some title", "Some content");
+            Clear();
         }
     }
 }
