@@ -11,16 +11,18 @@ namespace NotesApplication.Domain.Aggregates
         private Note() { }
 
         public Guid Id { get; set; }
+        public Guid UserId { get; private set; }
+        public User User { get; private set; }
         public string Title { get; private set; }
         public string Content { get; private set; }
         public DateTime DateCreated { get; private set; }
         public DateTime LastModified { get; private  set; }
 
-        public Note CreateNote(string title, string content)
+        public static Note CreateNote(Guid userId, string title, string content)
         {
             return new Note
             {
-                Id = Guid.NewGuid(),
+                UserId = userId,
                 Title = title,
                 Content = content,
                 DateCreated = DateTime.Now,

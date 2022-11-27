@@ -17,7 +17,7 @@ namespace NotesApplication.Domain.Aggregates
         public DateTime LastUploadDate { get; private set; }
         public IEnumerable<Note> Notes { get => _notes; }
 
-        public User CreateUser(string firstName, string lastName)
+        public static User CreateUser(string firstName, string lastName)
         {
             return new User()
             {
