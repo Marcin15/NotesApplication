@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:NotesApplication.WPF"
              xmlns:viewModel="clr-namespace:NotesApplication.UseCases.ViewModels;assembly=NotesApplication.UseCases"
              mc:Ignorable="d" d:DesignWidth="550" Height="166">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewModel:NewNoteViewModel />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid>
         <StackPanel Width="550" VerticalAlignment="Bottom">
             <TextBox Text="{Binding Title}"></TextBox>
@@ -18,7 +18,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Cursor="Hand" Padding="5">Add</Button>
+                <Button Cursor="Hand" Padding="5" Command="{Binding AddNewNoteCommand}">Add</Button>
                 <Button Cursor="Hand" Grid.Column="1" Command="{Binding ClearCommand}">Clear</Button>
             </Grid>
         </StackPanel>
