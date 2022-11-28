@@ -9,7 +9,7 @@
     <!--<UserControl.DataContext>
         <viewModel:NewNoteViewModel />
     </UserControl.DataContext>-->
-    <Grid>
+    <Grid Width="550">
         <StackPanel Width="550" VerticalAlignment="Bottom">
             <TextBox Text="{Binding Title}"></TextBox>
             <TextBox Text="{Binding Content}" Height="120"></TextBox>

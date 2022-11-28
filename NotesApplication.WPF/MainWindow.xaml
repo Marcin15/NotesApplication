@@ -21,8 +21,24 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <DockPanel VerticalAlignment="Bottom" Margin="0 0 0 10">
-            <controls:NewNote DataContext="{Binding NewNoteViewModel}"/>
-        </DockPanel>
+        <Grid Margin="0 20 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Notes}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:NoteDisplayer />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <DockPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0 0 0 10">
+                <controls:NewNote DataContext="{Binding NewNoteViewModel}"/>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>
+

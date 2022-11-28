@@ -8,7 +8,7 @@ namespace NotesApplication.UseCases.ViewModels
     public class NewNoteViewModel : BaseViewModel, INewNoteViewModel
     {
         private string _title;
-        public string Title
+        public string Title 
         {
             get { return _title; }
             set

@@ -25,10 +25,5 @@ namespace NotesApplication.WPF.Controls
         {
             InitializeComponent();
         }
-
-        //public NewNote(INewNoteViewModel viewModel)
-        //{
-        //    DataContext = viewModel;
-        //}
     }
 }
