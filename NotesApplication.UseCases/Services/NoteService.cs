@@ -1,6 +1,7 @@
 ﻿using NotesApplication.Domain.Aggregates;
 using NotesApplication.UseCases.Repositories;
 using NotesApplication.UseCases.Stores;
+using NotesApplication.UseCases.ViewModels;
 
 namespace NotesApplication.UseCases.Services
 {
@@ -20,6 +21,20 @@ namespace NotesApplication.UseCases.Services
             var newNote = Note.CreateNote(_accountStore.GetCurrentAccount().Id, title, content);
             await _noteRepository.Add(newNote);
             await _noteRepository.Save();
+        }
+
+        public async Task<IEnumerable<NoteDisplayerViewModel>> GetAllNotes()
+        {
+            var accountId = _accountStore.GetCurrentAccount().Id;
+
+            var notes = await _noteRepository.GetAll(accountId);
+
+            return notes.Select(x => new NoteDisplayerViewModel
+            {
+                Title = x.Title,
+                Content = x.Content,
+                DateCreated = x.DateCreated
+            });
         }
     }
 }

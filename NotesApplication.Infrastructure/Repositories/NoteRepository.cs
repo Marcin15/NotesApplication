@@ -18,6 +18,9 @@ namespace NotesApplication.Infrastructure.Repositories
             _notes = dataContext.Notes;
         }
 
+        public async Task<IEnumerable<Note>> GetAll(Guid userId) => await _notes.AsNoTracking()
+                                                                                .Where(x => x.UserId == userId)
+                                                                                .ToListAsync();
         public async Task Add(Note note) => await _notes.AddAsync(note);
     }
 }
