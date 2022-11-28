@@ -23,18 +23,23 @@ namespace NotesApplication.UseCases.Services
             await _noteRepository.Save();
         }
 
-        public async Task<IEnumerable<NoteDisplayerViewModel>> GetAllNotes()
+        public async Task<IEnumerable<Note>> GetAllNotes()
         {
             var accountId = _accountStore.GetCurrentAccount().Id;
 
-            var notes = await _noteRepository.GetAll(accountId);
+            return await _noteRepository.GetAll(accountId);
 
-            return notes.Select(x => new NoteDisplayerViewModel
-            {
-                Title = x.Title,
-                Content = x.Content,
-                DateCreated = x.DateCreated
-            });
+            //return notes.Select(x => new NoteDisplayerViewModel
+            //{
+            //    Title = x.Title,
+            //    Content = x.Content,
+            //    DateCreated = x.DateCreated
+            //});
+        }
+
+        public async Task DeleteNote(Note note)
+        {
+            await _noteRepository.Remove(note);
         }
     }
 }

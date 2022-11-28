@@ -6,5 +6,6 @@ namespace NotesApplication.UseCases.Repositories
     {
         Task Add(Note note);
         Task<IEnumerable<Note>> GetAll(Guid userId);
+        Task Remove(Note note);
     }
 }

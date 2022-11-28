@@ -22,5 +22,7 @@ namespace NotesApplication.Infrastructure.Repositories
                                                                                 .Where(x => x.UserId == userId)
                                                                                 .ToListAsync();
         public async Task Add(Note note) => await _notes.AddAsync(note);
+
+        public async Task Remove(Note note) => await _notes.Where(x => x.Id == note.Id).ExecuteDeleteAsync();
     }
 }

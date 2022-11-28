@@ -1,4 +1,5 @@
-﻿using NotesApplication.UseCases.Extensions;
+﻿using NotesApplication.Domain.Aggregates;
+using NotesApplication.UseCases.Extensions;
 using NotesApplication.UseCases.Helpers;
 using NotesApplication.UseCases.Models;
 using NotesApplication.UseCases.Services;
@@ -21,7 +22,7 @@ namespace NotesApplication.UseCases.ViewModels
         public string FirstName { get; set; } = "unknown";
         public string LastName { get; set; } = "unknown";
 
-        public ObservableCollection<NoteDisplayerViewModel> Notes { get; set; } = new();
+        public ObservableCollection<Note> Notes { get; set; } = new();
 
         private RelayCommand _deleteNoteCommand;
         public ICommand DeleteNoteCommand
@@ -32,13 +33,6 @@ namespace NotesApplication.UseCases.ViewModels
 
                 return _deleteNoteCommand;
             }
-        }
-
-        private void DeleteNote(object obj)
-        {
-            var note = obj as NoteDisplayerViewModel;
-
-            this.Notes.Remove(note);
         }
 
         public MainViewModel() { }
@@ -76,7 +70,6 @@ namespace NotesApplication.UseCases.ViewModels
             LastName = account.LastName;
 
             _accountStore.Update(account);
-            Debug.WriteLine(user);
         }
 
         private async Task GetAllNotes()
@@ -84,6 +77,14 @@ namespace NotesApplication.UseCases.ViewModels
             var notes = await _noteService.GetAllNotes();
 
             Notes = notes.ToObservableCollection();
+        }
+
+        private void DeleteNote(object obj)
+        {
+            var note = obj as Note;
+
+            this.Notes.Remove(note);
+            _noteService.DeleteNote(note);
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using NotesApplication.UseCases.ViewModels;
+﻿using NotesApplication.Domain.Aggregates;
+using NotesApplication.UseCases.ViewModels;
 
 namespace NotesApplication.UseCases.Services
 {
     public interface INoteService
     {
         Task AddNewNote(string title, string content);
-        Task<IEnumerable<NoteDisplayerViewModel>> GetAllNotes();
+        Task DeleteNote(Note note);
+        Task<IEnumerable<Note>> GetAllNotes();
     }
 }
