@@ -1,4 +1,5 @@
 ﻿using NotesApplication.UseCases.Helpers;
+using NotesApplication.UseCases.NewNoteObserver;
 using NotesApplication.UseCases.Services;
 using NotesApplication.UseCases.ViewModels.Base;
 using System.Windows.Input;
@@ -60,12 +61,16 @@ namespace NotesApplication.UseCases.ViewModels
         }
 
         private readonly INoteService _noteService;
+        private readonly INewNotePublisher _newNotePublisher;
 
         //public NewNoteViewModel() { }
 
-        public NewNoteViewModel(INoteService noteService)
+        public NewNoteViewModel(
+            INoteService noteService,
+            INewNotePublisher newNotePublisher)
         {
             _noteService = noteService;
+            _newNotePublisher = newNotePublisher;
         }
 
         public void Clear()
@@ -76,8 +81,10 @@ namespace NotesApplication.UseCases.ViewModels
 
         public async void AddNote()
         {
-            await _noteService.AddNewNote(_title, _content);
+            var newNote = await _noteService.AddNewNote(_title, _content);
             Clear();
+
+            _newNotePublisher.Notify(newNote);
         }
     }
 }

@@ -16,11 +16,13 @@ namespace NotesApplication.UseCases.Services
             _accountStore = accountStore;
         }
 
-        public async Task AddNewNote(string title, string content)
+        public async Task<Note> AddNewNote(string title, string content)
         {
             var newNote = Note.CreateNote(_accountStore.GetCurrentAccount().Id, title, content);
             await _noteRepository.Add(newNote);
             await _noteRepository.Save();
+
+            return newNote;
         }
 
         public async Task<IEnumerable<Note>> GetAllNotes()

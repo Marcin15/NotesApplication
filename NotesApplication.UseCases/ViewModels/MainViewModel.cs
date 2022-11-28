@@ -2,6 +2,7 @@
 using NotesApplication.UseCases.Extensions;
 using NotesApplication.UseCases.Helpers;
 using NotesApplication.UseCases.Models;
+using NotesApplication.UseCases.NewNoteObserver;
 using NotesApplication.UseCases.Services;
 using NotesApplication.UseCases.Stores;
 using NotesApplication.UseCases.ViewModels.Base;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace NotesApplication.UseCases.ViewModels
 {
-    public class MainViewModel : BaseViewModel, IMainViewModel
+    public class MainViewModel : BaseViewModel, IMainViewModel, INewNoteSubscriber
     {
         private readonly IAccountStore _accountStore;
         private readonly IUserService _userService;
@@ -41,7 +42,8 @@ namespace NotesApplication.UseCases.ViewModels
             IAccountStore accountStore,
             IUserService userService,
             INewNoteViewModel newNoteViewModel,
-            INoteService noteService)
+            INoteService noteService,
+            INewNotePublisher newNotePublisher)
         {
             _accountStore = accountStore;
             _userService = userService;
@@ -54,6 +56,8 @@ namespace NotesApplication.UseCases.ViewModels
                 await SetInitialAccout();
                 await GetAllNotes();
             }).Wait();
+
+            newNotePublisher.Subscribe(this);
         }
 
         private async Task SetInitialAccout()
@@ -85,6 +89,11 @@ namespace NotesApplication.UseCases.ViewModels
 
             this.Notes.Remove(note);
             _noteService.DeleteNote(note);
+        }
+
+        public void NewNoteSubscribe(Note note)
+        {
+            Notes.Add(note);
         }
     }
 }
